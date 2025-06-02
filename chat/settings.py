@@ -37,7 +37,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+
+    'user_app',
 ]
+
+# Use this settings instead for authentication in your DRF apis
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': (
+#         'rest_framework.permissions.DjangoModelPermissions',
+#     )
+# }
+
+AUTH_USER_MODEL = "user_app.User"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -72,10 +84,21 @@ WSGI_APPLICATION = 'chat.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'chat_app_demo',
+        'USER': 'postgres',
+        'PASSWORD': 'ilovemymom',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
