@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Your Email</title>
+  <style type="text/css">
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      background-color: #0F2D59;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      color: #ffffff;
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .content {
+      padding: 30px;
+    }
+
+    .content p {
+      font-size: 16px;
+      color: #333333;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #F59D1D;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 12px 24px;
+      border-radius: 5px;
+      font-size: 16px;
+      margin: 30px 0;
+    }
+
+    .footer {
+      background-color: #0F2D59;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .footer p {
+      color: #ffffff;
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .link {
+      word-break: break-word;
+      color: #0F2D59;
+      font-size: 14px;
+    }
+
+    .note {
+      font-size: 13px;
+      color: #999999;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Welcome to Our App</h1>
+    </div>
+    <div class="content">
+      <p>Hi {{ user_name }},</p>
+      <p>Thank you for registering! Please verify your email address by clicking the button below:</p>
+      <div style="text-align: center;">
+        <a href="{{ verification_link }}" class="btn">Verify Email</a>
+      </div>
+      <p>If the button above doesn't work, copy and paste this link into your browser:</p>
+      <p class="link">{{ verification_link }}</p>
+      <p class="note">If you didn't request this email, you can safely ignore it.</p>
+    </div>
+    <div class="footer">
+      <p>&copy; {{ current_year }} Our App. All rights reserved.</p>
+    </div>
+  </div>
+</body>
+</html>
