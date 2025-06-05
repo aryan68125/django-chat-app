@@ -6,10 +6,10 @@ from django.core.mail import EmailMultiAlternatives
 
 app = Celery('tasks', broker='pyamqp://guest@localhost//')
 
-def send_email(subject,message,EMAIL_HOST_USER,recipient_list,html_message=None):
+def send_email(subject,EMAIL_HOST_USER,recipient_list,html_message=None):
     email = EmailMultiAlternatives(
         subject=subject,
-        body=message,
+        # body=message,
         from_email=EMAIL_HOST_USER,
         to=recipient_list
     )
@@ -20,6 +20,6 @@ def send_email(subject,message,EMAIL_HOST_USER,recipient_list,html_message=None)
 logger = get_task_logger(__name__)
 
 @shared_task(name="send_email_task")
-def send_email_task(subject, message, EMAIL_HOST_USER, recipient_list, html_message = None):
+def send_email_task(subject, EMAIL_HOST_USER, recipient_list, html_message = None):
     logger.info("Mail Sent!")
-    return send_email(subject, message, EMAIL_HOST_USER, recipient_list, html_message)
+    return send_email(subject, EMAIL_HOST_USER, recipient_list, html_message)
