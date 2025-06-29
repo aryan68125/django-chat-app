@@ -14,8 +14,8 @@
     {% tailwind_css %}
 
     <!-- Optional external styles -->
-    <link href="{% static 'css/color_theme/theme_color.css' %}" rel="stylesheet">
-    <link href="{% static 'css/sweet_alert/sweetalert2.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/color_theme/theme_color.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/sweet_alert/sweetalert2.min.css' %}" rel="stylesheet"/>
     {% block extra_head %}{% endblock %}
 </head>
 <body class="min-h-screen" style="background: var(--primary-color-bg);">
@@ -25,6 +25,7 @@
 
     <!-- Scripts -->
     <script src="{% static 'js/sweet_alert/sweet_alert_2.js' %}"></script>
+    <script src="{% static 'js/get_cookie/get_csrf_token.js' %}"></script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>
