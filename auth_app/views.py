@@ -3,7 +3,9 @@ from django.shortcuts import render
 # Create your views here.
 def register_user_page(request):
     if not request.user.is_authenticated:
-        return render(request,'auth_app/register_users.html')
+        return render(request,"auth_app/register_users.html")
     
-
+def login_user_page(request):
+    if not request.user.is_authenticated:
+        return render(request,"auth_app/login_users.html")
     

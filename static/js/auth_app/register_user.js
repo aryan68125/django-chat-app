@@ -37,7 +37,6 @@ function gather_data_register_user(){
         "email":email,
         "password":password
     }
-    console.log("form data ===> ",data)
     if(!validate_email(email)){
         show_error_message("Invalid email format","email");
     }
@@ -65,19 +64,10 @@ function send_data_register_user(data){
     .then(data=>{
         console.log(data);
         if(data.status_code === 201){
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: data.message,
-                showConfirmButton: false,
-                timer: 1500
-            });
+            success_alert(data.message,login_user_page)
         }
         else{
-            Swal.fire({
-                icon: "error",
-                text: data.error,
-            });
+            error_alert(data.error)
         }
     })
 }

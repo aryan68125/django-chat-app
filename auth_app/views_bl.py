@@ -38,4 +38,11 @@ class RegisterUser(APIView, CommonResponse):
 
 class LoginUser(APIView,CommonResponse):
     def post(self,request):
+        email = request.data.get("email")
+        password = request.data.get("password")
+        data = {
+            "email":email,
+            "password":password
+        }
+        serialzier = LoginUserSerializer(data=data)
         return self.common_web_response(status_code=status.HTTP_200_OK,message=SuccessMessages["LOGIN_SUCCESS"].value)

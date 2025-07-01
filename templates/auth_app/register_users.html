@@ -31,6 +31,7 @@
 {% block extra_scripts %}
 <script>
     let RegisterUser = "{% url 'RegisterUser' %}"
+    let login_user_page = "{% url 'login_user_page' %}"
 </script>
 <script src="{% static 'js/auth_app/register_user.js' %}"></script>
 {% endblock %}
