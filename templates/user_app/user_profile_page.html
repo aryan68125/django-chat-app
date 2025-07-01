@@ -6,14 +6,27 @@
 <link href = "{% static 'css/users_app/user_profile_page.css' %}" rel="stylesheet"/>
 <!--USER PROFILE FORM STARTS-->
 <div class="flex flex-col items-center justify-center border-2 border-gray-500 rounded-lg p-5 bg-white shadow-md w-90 mt-2 ms-5 me-5">
+    <!--USER PROFILE PAGE FORM STARTS-->
     <div class="w-full flex flex-col items-center justify-center">
         <h1 class="font-bold text-3xl" >Profile Settings</h1>
     </div>
     <div class="w-full flex flex-row items-center justify-center sm:justify-start">
-        <div class="flex flex-col items-center sm:items-start justify-center w-full sm:w-1/2 p-5">
-            <label for="user_phonenumber_profile_page" class="font-semibold text-lg">Phone:</label>
-            <input type="text" class="rounded-xl" id="user_phonenumber_profile_page"/>
-            <p class="text-red-500 hidden" id="user_phonenumber_profile_page_error"></p>
+        <div class="w-full flex flex-col items-center sm:items-start justify-center sm:w-1/2 p-5">
+            <label for="profile_photo_input" class="font-semibold text-lg mb-2">Profile Photo:</label>
+
+            <!-- Current or preview image -->
+            <img id="profile_photo_preview" 
+                src="{% static 'images/default_avatar.png' %}" 
+                alt="Profile Photo" 
+                class="w-28 h-28 rounded-full object-cover border border-gray-300 mb-3">
+
+            <!-- Upload Button -->
+            <input type="file" id="profile_photo_input" accept="image/*" class="hidden">
+            <button type="button" id="select_profile_photo" 
+                    class="border-2 border-gray-500 text-black px-4 py-2 rounded-lg hover:bg-black hover:text-white">
+                Choose Photo
+            </button>
+            <p class="text-red-500 hidden mt-2" id="profile_photo_error"></p>
         </div>
     </div>
     <div class="w-full flex flex-col sm:flex-row items-center justify-start">
@@ -28,12 +41,14 @@
             <p class="text-red-500 hidden" id="user_phonenumber_profile_page_error" maxlength="10"></p>
         </div>
     </div>
-    <div class="flex flex-row items-center justify-end w-full p-5">
+    <div class="flex flex-row items-center justify-center sm:justify-end w-full p-5">
         <button class="bg-black text-white font-semibold rounded-lg px-4 py-2 hover:bg-blue-600" id="update_profile_button">Update Profile</button>
     </div>
+    <!--USER PROFILE PAGE FORM ENDS-->
 
     <div class="border-2 border-gray-500 w-full"></div>
 
+    <!--USER PROFILE CHANGE PASSWORD FORM STARTS-->
     <div class="w-full flex flex-col items-center justify-center">
         <h1 class="font-bold text-3xl pt-5" >Change Password</h1>
     </div>
@@ -54,9 +69,10 @@
             <p class="text-red-500 hidden" id="user_phonenumber_profile_page_error" maxlength="10"></p>
         </div>
     </div>
-    <div class="flex flex-row items-center justify-end w-full p-5">
+    <div class="flex flex-row items-center justify-center sm:justify-end w-full p-5">
         <button class="bg-black text-white font-semibold rounded-lg px-4 py-2 hover:bg-blue-600" id="update_password_profile_page">Change Password</button>
     </div>
+    <!--USER PROFILE CHANGE PASSWORD FORM ENDS-->
 </div>
 <!--USER PROFILE FORM ENDS-->
 {% endblock %}
