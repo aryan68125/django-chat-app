@@ -11,6 +11,11 @@ class ErrorMessages(Enum):
 
     # Login errors
     INVALID_CREDENTIALS = "Invalid credentials! Please check your email and password."
+    ACCOUNT_NOT_FOUND = "Account not found! Please register first or check your email."
+    PASSWORD_INCORRECT = "Password is incorrect! Please try again."
+
+    # INTERNAL SERVER ERROR
+    SOMETHING_WENT_WRONG = "Something went wrong! Please try again later."
 
 class SuccessMessages(Enum):
     ACCOUNT_REGISTERED = "Account registered successfully!"

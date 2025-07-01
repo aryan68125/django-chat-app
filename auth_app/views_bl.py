@@ -16,6 +16,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 
 from auth_app.serializers import RegisterUserSerializer,LoginUserSerializer
+from rest_framework.exceptions import ValidationError
 from common_app.common_messages import ErrorMessages,SuccessMessages
 class RegisterUser(APIView, CommonResponse):
     def post(self, request):
@@ -35,18 +36,22 @@ class RegisterUser(APIView, CommonResponse):
         return self.common_web_response(
             status_code=status.HTTP_201_CREATED,message=SuccessMessages["ACCOUNT_REGISTERED"].value
         )
-
 class LoginUser(APIView,CommonResponse):
     def post(self,request):
-        email = request.data.get("email")
-        password = request.data.get("password")
-        data = {
-            "email":email,
-            "password":password
-        }
-        login_serializer = LoginUserSerializer(data=data,context={"request":request})
-        if not login_serializer.is_valid():
-            return self.common_web_response(status_code=status.HTTP_400_BAD_REQUEST,error=login_serializer.errors)
-        # sice I wrote my login code inside the create function I have to trigger it manually using this seiralizer.save() method
-        login_serializer.save()
-        return self.common_web_response(status_code=status.HTTP_200_OK,message=SuccessMessages["LOGIN_SUCCESS"].value)
+        try:
+            email = request.data.get("email")
+            password = request.data.get("password")
+            data = {
+                "email":email,
+                "password":password
+            }
+            login_serializer = LoginUserSerializer(data=data,context={"request":request})
+            if not login_serializer.is_valid():
+                return self.common_web_response(status_code=status.HTTP_400_BAD_REQUEST,error=login_serializer.errors)
+            # sice I wrote my login code inside the create function I have to trigger it manually using this seiralizer.save() method
+            login_serializer.save() 
+            return self.common_web_response(status_code=status.HTTP_200_OK,message=SuccessMessages["LOGIN_SUCCESS"].value)
+        except ValidationError as ve:
+            return self.common_web_response(status_code=status.HTTP_400_BAD_REQUEST,error=ve.detail)
+        except Exception as e:
+            return self.common_web_response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,error=ErrorMessages["SOMETHING_WENT_WRONG"].value, message=str(e))

@@ -1,0 +1,32 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My App{% endblock %}</title>
+
+    <!-- Import jquery script first -->
+    <script src="{% static 'js/jquery/jquery_3.7.1.js' %}"></script>
+
+    <!-- Tailwind CSS (via Django-Tailwind or CDN) -->
+    {% tailwind_css %}
+
+    <!-- Optional external styles -->
+    <link href="{% static 'css/color_theme/theme_color.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/sweet_alert/sweetalert2.min.css' %}" rel="stylesheet"/>
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="min-h-screen bg-[var(--primary-color-bg)] w-full">
+    <div class="min-h-screen flex items-center justify-center">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/sweet_alert/sweet_alert_2.js' %}"></script>
+    <script src="{% static 'js/get_cookie/get_csrf_token.js' %}"></script>
+    <script src="{% static 'js/base/common_ui.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+</body>
+</html>

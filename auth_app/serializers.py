@@ -12,7 +12,8 @@ from rest_framework import serializers
 from user_app.models import User
 from rest_framework.serializers import ValidationError
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import login
+from django.contrib.auth.hashers import check_password
 
 class RegisterUserSerializer(serializers.ModelSerializer,CommonValidations):
     email = serializers.EmailField(required=True, max_length=70,error_messages ={"required":ErrorMessages["EMAIL_FIELD_EMPTY"].value})
@@ -65,25 +66,24 @@ class LoginUserSerializer(serializers.Serializer,CommonValidations):
 
     def validate_email(self,value):
         """Validate email field"""
-        print(">>> LoginUserSerializer: validate_email() called")
         if not self.is_email_valid(value).get("status"):
             raise serializers.ValidationError(self.is_email_valid(value).get("error"))
         return value
     def validate_password(self,value):
         """Validate passowrd field"""
-        print(">>> LoginUserSerializer: validate_password() called")
         if not self.is_password_valid(value).get("status"):
             raise serializers.ValidationError(self.is_password_valid(value).get("error"))
         return value
     def create(self,validated_data):
-        print(">>> LoginUserSerializer: create() called")
         email = validated_data.get("email").lower()
         password = validated_data.get("password")
-        authenticated_user = authenticate(username=email,password=password)
-        if authenticated_user:
-            login(self.context.get("request"),authenticated_user)
-            return authenticated_user
-        else:
-            raise ValidationError(ErrorMessages["INVALID_CREDENTIALS"].value)
+        user_instance = User.objects.filter(email=email,is_deleted=False).first()
+        if not user_instance:
+            raise ValidationError(ErrorMessages["ACCOUNT_NOT_FOUND"].value)
+        
+        if not check_password(password,user_instance.password):
+            raise ValidationError(ErrorMessages["PASSWORD_INCORRECT"].value)
+        login(self.context.get("request"),user_instance)
+        return user_instance
 
         
