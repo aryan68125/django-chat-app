@@ -15,9 +15,27 @@ from django_celery_results.models import TaskResult
 from django.template.loader import render_to_string
 from django.conf import settings
 
+from auth_app.serializers import RegisterUserSerializer 
+from common_app.common_messages import ErrorMessages,SuccessMessages
 class RegisterUser(APIView, CommonResponse):
     def post(self, request):
+        email = request.data.get("email")
+        password = request.data.get("password")
+        front_end_data = {
+            "email":email,
+            "password":password
+        }
+        serializer = RegisterUserSerializer(data= front_end_data)
+        if not serializer.is_valid():
+            return self.common_web_response(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                error=serializer.errors
+            )
+        serializer.save()
         return self.common_web_response(
-            status_code=status.HTTP_201_CREATED,
+            status_code=status.HTTP_201_CREATED,message=SuccessMessages["ACCOUNT_REGISTERED"].value
         )
 
+class LoginUser(APIView,CommonResponse):
+    def post(self,request):
+        return self.common_web_response(status_code=status.HTTP_200_OK,message=SuccessMessages["LOGIN_SUCCESS"].value)

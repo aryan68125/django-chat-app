@@ -18,8 +18,8 @@
     <link href="{% static 'css/sweet_alert/sweetalert2.min.css' %}" rel="stylesheet"/>
     {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-screen" style="background: var(--primary-color-bg);">
-    <div class="container mx-auto p-4">
+<body class="min-h-screen bg-[var(--primary-color-bg)] w-full">
+    <div class="min-h-screen flex items-center justify-center">
         {% block content %}{% endblock %}
     </div>
 

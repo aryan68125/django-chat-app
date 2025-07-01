@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from user_app.user_manager import UserManager
-
+from django.utils import timezone
 class User(AbstractBaseUser):
     email = models.EmailField(
         verbose_name="email address",
@@ -10,6 +10,9 @@ class User(AbstractBaseUser):
     )
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    deleted_at = models.DateTimeField(null=True, blank=True)
 
     objects = UserManager()
 
@@ -34,3 +37,11 @@ class User(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+class UserDetials(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="user_detials")
+    name = models.CharField(max_length=200,null=True,blank=True)
+    mobile_number = models.CharField(max_length=10,null=True,blank=True)
+    profile_picture = models.ImageField(upload_to="profile_pictures/", null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=True)

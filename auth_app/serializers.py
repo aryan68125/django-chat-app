@@ -8,19 +8,56 @@ from user_app.models import User
 from common_app.common_messages import ErrorMessages
 #common validation class realted imports
 from common_app.common_validations import CommonValidations
-class RegisterUser(serializers.ModelSerializer,CommonValidations):
-    email = serializers.EmailField(required=True,error_message = {"required":ErrorMessages['EMAIL_FIELD_EMPTY'].value})
-    password = serializers.CharField(required=True,error_message = {"required":ErrorMessages['PASSWORD_FIELD_EMPTY'].value})
+from rest_framework import serializers
+from user_app.models import User
+from rest_framework.serializers import ValidationError
+
+from django.contrib.auth.hashers import make_password
+
+class RegisterUserSerializer(serializers.ModelSerializer,CommonValidations):
+    email = serializers.EmailField(required=True, max_length=70,error_messages ={"required":ErrorMessages["EMAIL_FIELD_EMPTY"].value})
+    password = serializers.CharField(write_only = True,required=True,error_messages = {"required":ErrorMessages["PASSWORD_FIELD_EMPTY"].value})
     class Meta:
         model = User
-        fields = ['email','password']
-
-    """validate email pattern and uniqueness"""
+        fields = ["email","password","is_active","is_admin","is_deleted"]
     def validate_email(self,value):
-        if not self.is_email_valid(value):
-            raise serializers.ValidationError(ErrorMessages['EMAIL_NOT_VALID'].value)
-        start from here ===> 
-        ===> add is_deleted field in the User model
-        ===> add a logic to make sure that the user is notified if the email is taken by another user which has is_deleted flag set to False only 
-        ===> If a user has the email address which is present in another user reacord which is deleted then that record must be updated in the User table during the registration process and must be allowed to create the account. 
-        if User.objects.filter(email=value.lower())
+        """Validate the email field"""
+        if not self.is_email_valid(value).get("status"):
+            raise serializers.ValidationError(self.is_email_valid(value).get("error"))
+        return value
+    def validate_password(self,value):
+        """Validate the password field"""
+        if not self.is_password_valid(value).get("status"):
+            raise serializers.ValidationError(self.is_password_valid(value).get("error"))
+        return value
+    def create(self,validated_data):
+        """
+        Check if the user is already in database with is_deleted = False
+        """
+        print(f"password :: {validated_data.get('password')} , email :: {validated_data.get('email')}")
+        existing_user = User.objects.filter(email=validated_data.get("email").lower(),is_deleted=True).first()
+        if existing_user:
+            """Update the existing user if found"""
+            existing_user.is_active = True
+            existing_user.is_deleted = False
+            existing_user.email = validated_data.get("email").lower()
+            existing_user.password = make_password(validated_data.get("password"))
+            existing_user.save()
+            user_instance = existing_user
+        else:
+            """
+            Create a new user with the validated_data here
+
+            Ideally is_active=True, must be False for new users but since I am not verifying emails hence I am keeping it True so the user can login immediately.
+            """
+            user_instance = User.objects.create(
+                email=validated_data.get("email").lower(),
+                password=make_password(validated_data.get("password")),
+                is_active=True,
+                is_admin=False,
+                is_deleted=False,
+            )
+        return user_instance
+        
+
+        
