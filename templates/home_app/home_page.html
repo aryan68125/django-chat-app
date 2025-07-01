@@ -1,1 +1,20 @@
-<h1>This is home page</h1>
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<link href = "{% static 'css/users_app/register_page.css' %}" rel="stylesheet"/>
+<!--REGISTER USER FORM STARTS-->
+
+<!--REGISTER USER FORM ENDS-->
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    let RegisterUser = "{% url 'RegisterUser' %}"
+    let LoginUser = "{% url 'LoginUser' %}"
+    let render_home_page = "{% url 'render_home_page' %}"
+    let register_user_page = "{% url 'register_user_page' %}"
+</script>
+<script src="{% static 'js/auth_app/login_user.js' %}"></script>
+{% endblock %}

@@ -18,15 +18,48 @@
     <link href="{% static 'css/sweet_alert/sweetalert2.min.css' %}" rel="stylesheet"/>
     {% block extra_head %}{% endblock %}
 </head>
-<body class="min-h-screen bg-[var(--primary-color-bg)] w-full">
-    <div class="min-h-screen flex items-center justify-center">
-        {% block content %}{% endblock %}
+<body class="bg-[var(--primary-color-bg)] w-full">
+    <!-- Navigation Bar STARTS -->
+    <div class="border-2 border-gray-500 rounded-lg p-5 bg-white shadow-md w-90 mt-2 ms-5 me-5 flex flex-row items-center justify-between">
+        <button class="sm:hidden border-2 border-gray-500 rounded-lg p-2 bg-white shadow-md w-10 h-10 flex items-center justify-center" id="open_sidebar_menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <div class="hidden sm:flex sm:flex-row sm:items-center sm:justify-center">
+            <a href="{% url 'render_home_page' %}" class="text-gray-700 hover:text-blue-500 font-semibold text-lg me-3">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+            <a href="{% url 'render_home_page' %}" class="text-gray-700 hover:text-blue-500 font-semibold text-lg me-3">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+            <a href="{% url 'render_home_page' %}" class="text-gray-700 hover:text-blue-500 font-semibold text-lg me-3">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+            <a href="{% url 'render_home_page' %}" class="text-gray-700 hover:text-blue-500 font-semibold text-lg me-3">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+        </div>
+
+        <div class="flex flex-row items-center justify-center" id="user_profile_settings_btn">
+            <div class="flex flex-row items-center justify-center border-r-2 border-gray-500 pr-3">
+                <img src="{% static 'images/logo.png' %}" alt="Logo" class="w-10 h-10 rounded-full">
+            </div>
+            <div class="flex flex-col items-start justify-center ml-3">
+                <p id="logged_in_username">User name</p>
+            </div>
+        </div>
     </div>
+    <!-- NAvigation Bar ENDS-->
+
+    {% block content %}{% endblock %}
 
     <!-- Scripts -->
     <script src="{% static 'js/sweet_alert/sweet_alert_2.js' %}"></script>
+    <script src="https://kit.fontawesome.com/aed2e6e79d.js" crossorigin="anonymous"></script>
     <script src="{% static 'js/get_cookie/get_csrf_token.js' %}"></script>
     <script src="{% static 'js/base/common_ui.js' %}"></script>
+    <script src="{% static 'js/base/user_profile.js' %}"></script>
+    <script src="{% static 'js/base/base.js' %}"></script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>
