@@ -1,5 +1,6 @@
 $(document).ready(function(){
     register_user_button_handler()
+    redirect_to_login_page_handler()
 })
 // REGISTER BUTTON LOGIC STARTS
 function register_user_button_handler(){
@@ -72,3 +73,12 @@ function send_data_register_user(data){
     })
 }
 // GATHER DATA AND THEN SEND DATA TO BACK-END ENDS
+
+
+// REDIRECT LOGIC STARTS
+function redirect_to_login_page_handler(){
+    $(document).on("click","#redirect_to_login_page",function(){
+        window.location.href = login_user_page
+    })
+}
+// REDIRECT LOGIC ENDS

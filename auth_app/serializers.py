@@ -11,8 +11,8 @@ from common_app.common_validations import CommonValidations
 from rest_framework import serializers
 from user_app.models import User
 from rest_framework.serializers import ValidationError
-
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate, login
 
 class RegisterUserSerializer(serializers.ModelSerializer,CommonValidations):
     email = serializers.EmailField(required=True, max_length=70,error_messages ={"required":ErrorMessages["EMAIL_FIELD_EMPTY"].value})
@@ -34,7 +34,6 @@ class RegisterUserSerializer(serializers.ModelSerializer,CommonValidations):
         """
         Check if the user is already in database with is_deleted = False
         """
-        print(f"password :: {validated_data.get('password')} , email :: {validated_data.get('email')}")
         existing_user = User.objects.filter(email=validated_data.get("email").lower(),is_deleted=True).first()
         if existing_user:
             """Update the existing user if found"""
@@ -59,5 +58,32 @@ class RegisterUserSerializer(serializers.ModelSerializer,CommonValidations):
             )
         return user_instance
         
+
+class LoginUserSerializer(serializers.Serializer,CommonValidations):
+    email = serializers.EmailField(required=True,max_length=100,error_messages = {"required":ErrorMessages["EMAIL_FIELD_EMPTY"].value})
+    password = serializers.CharField(write_only=True,required=True,error_messages = {"required":ErrorMessages["PASSWORD_FIELD_EMPTY"].value})
+
+    def validate_email(self,value):
+        """Validate email field"""
+        print(">>> LoginUserSerializer: validate_email() called")
+        if not self.is_email_valid(value).get("status"):
+            raise serializers.ValidationError(self.is_email_valid(value).get("error"))
+        return value
+    def validate_password(self,value):
+        """Validate passowrd field"""
+        print(">>> LoginUserSerializer: validate_password() called")
+        if not self.is_password_valid(value).get("status"):
+            raise serializers.ValidationError(self.is_password_valid(value).get("error"))
+        return value
+    def create(self,validated_data):
+        print(">>> LoginUserSerializer: create() called")
+        email = validated_data.get("email").lower()
+        password = validated_data.get("password")
+        authenticated_user = authenticate(username=email,password=password)
+        if authenticated_user:
+            login(self.context.get("request"),authenticated_user)
+            return authenticated_user
+        else:
+            raise ValidationError(ErrorMessages["INVALID_CREDENTIALS"].value)
 
         

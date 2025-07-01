@@ -27,7 +27,8 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
 
     path('', include('auth_app.urls')),
-    path('user_app/', include('user_app.urls')),
+    path('user/', include('user_app.urls')),
+    path('home/',include('home_app.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

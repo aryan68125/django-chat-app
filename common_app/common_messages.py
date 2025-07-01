@@ -9,6 +9,9 @@ class ErrorMessages(Enum):
     EMAIL_NOT_VALID = "Email field is not valid!"
     PASSWORD_NOT_VALID = "Password field is not valid! Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters."
 
+    # Login errors
+    INVALID_CREDENTIALS = "Invalid credentials! Please check your email and password."
+
 class SuccessMessages(Enum):
     ACCOUNT_REGISTERED = "Account registered successfully!"
     LOGIN_SUCCESS = "Login Successful!"

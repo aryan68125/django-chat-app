@@ -836,6 +836,14 @@ select {
   margin-bottom: 1.5rem;
 }
 
+.me-2 {
+  margin-inline-end: 0.5rem;
+}
+
+.me-3 {
+  margin-inline-end: 0.75rem;
+}
+
 .block {
   display: block;
 }
@@ -876,6 +884,10 @@ select {
   width: 100%;
 }
 
+.w-1\/4 {
+  width: 25%;
+}
+
 .max-w-sm {
   max-width: 24rem;
 }
@@ -900,12 +912,24 @@ select {
   align-content: flex-start;
 }
 
+.items-end {
+  align-items: flex-end;
+}
+
 .items-center {
   align-items: center;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
 }
 
 .justify-around {

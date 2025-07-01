@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'user_app',
     'auth_app',
     'common_app',
+    'home_app',
 ]
 
 # Use this settings instead for authentication in your DRF apis
