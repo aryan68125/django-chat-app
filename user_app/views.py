@@ -1,16 +1,8 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import authentication , permissions
-from rest_framework import status
+from django.shortcuts import render,redirect
 # Create your views here.
-class test(APIView):
-    # authentication_classes = (authentication.SessionAuthentication,)
-    # permission_classes = (permissions.IsAuthenticated,)
-    def post(self,request):
-        test_data = request.data.get('test_data')
-        print(f"test_data recieved : {test_data}")
-        data = {
-            "test_data":test_data
-        }
-        return Response({'status_code':status.HTTP_200_OK,'message':'test_data recieved','data':data})
+def render_profile_page(request):
+    if request.user.is_authenticated:
+        return render(request,"user_app/user_profile_page.html")
+    else:
+        return redirect("login_user_page")
+    

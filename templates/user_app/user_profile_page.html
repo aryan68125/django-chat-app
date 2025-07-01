@@ -1,0 +1,69 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Profile Settings{% endblock %}
+
+{% block content %}
+<link href = "{% static 'css/users_app/user_profile_page.css' %}" rel="stylesheet"/>
+<!--USER PROFILE FORM STARTS-->
+<div class="flex flex-col items-center justify-center border-2 border-gray-500 rounded-lg p-5 bg-white shadow-md w-90 mt-2 ms-5 me-5">
+    <div class="w-full flex flex-col items-center justify-center">
+        <h1 class="font-bold text-3xl" >Profile Settings</h1>
+    </div>
+    <div class="w-full flex flex-row items-center justify-center sm:justify-start">
+        <div class="flex flex-col items-center sm:items-start justify-center w-full sm:w-1/2 p-5">
+            <label for="user_phonenumber_profile_page" class="font-semibold text-lg">Phone:</label>
+            <input type="text" class="rounded-xl" id="user_phonenumber_profile_page"/>
+            <p class="text-red-500 hidden" id="user_phonenumber_profile_page_error"></p>
+        </div>
+    </div>
+    <div class="w-full flex flex-col sm:flex-row items-center justify-start">
+        <div class="flex flex-col items-start justify-center p-5">
+            <label for="user_name_profile_page" class="font-semibold text-lg">Name:</label>
+            <input type="text" class="rounded-xl" id="user_name_profile_page"/>
+            <p class="text-red-500 hidden" id="user_name_profile_page_error"></p>
+        </div>
+        <div class="flex flex-col items-start justify-center p-5">
+            <label for="user_phonenumber_profile_page" class="font-semibold text-lg">Phone:</label>
+            <input type="text" class="rounded-xl" id="user_phonenumber_profile_page"/>
+            <p class="text-red-500 hidden" id="user_phonenumber_profile_page_error" maxlength="10"></p>
+        </div>
+    </div>
+    <div class="flex flex-row items-center justify-end w-full p-5">
+        <button class="bg-black text-white font-semibold rounded-lg px-4 py-2 hover:bg-blue-600" id="update_profile_button">Update Profile</button>
+    </div>
+
+    <div class="border-2 border-gray-500 w-full"></div>
+
+    <div class="w-full flex flex-col items-center justify-center">
+        <h1 class="font-bold text-3xl pt-5" >Change Password</h1>
+    </div>
+    <div class="w-full flex flex-col sm:flex-row items-center justify-start">
+        <div class="flex flex-col items-start justify-center p-5">
+            <label for="user_name_profile_page" class="font-semibold text-lg">Old Password:</label>
+            <input type="password" class="rounded-xl" id="user_name_profile_page"/>
+            <p class="text-red-500 hidden" id="user_name_profile_page_error"></p>
+        </div>
+        <div class="flex flex-col items-start justify-center p-5">
+            <label for="user_name_profile_page" class="font-semibold text-lg">New Password:</label>
+            <input type="password" class="rounded-xl" id="user_name_profile_page"/>
+            <p class="text-red-500 hidden" id="user_name_profile_page_error"></p>
+        </div>
+        <div class="flex flex-col items-start justify-center p-5">
+            <label for="user_phonenumber_profile_page" class="font-semibold text-lg">Confirm Password:</label>
+            <input type="password" class="rounded-xl" id="user_phonenumber_profile_page"/>
+            <p class="text-red-500 hidden" id="user_phonenumber_profile_page_error" maxlength="10"></p>
+        </div>
+    </div>
+    <div class="flex flex-row items-center justify-end w-full p-5">
+        <button class="bg-black text-white font-semibold rounded-lg px-4 py-2 hover:bg-blue-600" id="update_password_profile_page">Change Password</button>
+    </div>
+</div>
+<!--USER PROFILE FORM ENDS-->
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+
+</script>
+<script src="{% static 'js/user_app/user_profile_page.js' %}"></script>
+{% endblock %}

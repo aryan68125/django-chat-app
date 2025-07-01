@@ -40,12 +40,20 @@
             </a>
         </div>
 
-        <div class="flex flex-row items-center justify-center" id="user_profile_settings_btn">
-            <div class="flex flex-row items-center justify-center border-r-2 border-gray-500 pr-3">
-                <img src="{% static 'images/logo.png' %}" alt="Logo" class="w-10 h-10 rounded-full">
+        <div class="relative" id="user_profile_settings_btn_wrapper">
+            <div class="flex flex-row items-center justify-center cursor-pointer" id="user_profile_settings_btn">
+                <div class="flex flex-row items-center justify-center border-r-2 border-gray-500 pr-3">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo" class="w-10 h-10 rounded-full">
+                </div>
+                <div class="flex flex-col items-start justify-center ml-3">
+                    <p id="logged_in_username">User name</p>
+                </div>
             </div>
-            <div class="flex flex-col items-start justify-center ml-3">
-                <p id="logged_in_username">User name</p>
+
+            <!-- DROPDOWN MENU -->
+            <div id="profile_dropdown_menu" class="hidden absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-lg shadow-md z-50">
+                <a href="{% url 'render_profile_page' %}" class="block px-4 py-2 text-gray-800 hover:bg-gray-100">Profile Settings</a>
+                <button id="logout_button_nav_bar" class="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100">Logout</button>
             </div>
         </div>
     </div>
@@ -58,8 +66,11 @@
     <script src="https://kit.fontawesome.com/aed2e6e79d.js" crossorigin="anonymous"></script>
     <script src="{% static 'js/get_cookie/get_csrf_token.js' %}"></script>
     <script src="{% static 'js/base/common_ui.js' %}"></script>
-    <script src="{% static 'js/base/user_profile.js' %}"></script>
+    <script src="{% static 'js/base/user_profile_navbar.js' %}"></script>
     <script src="{% static 'js/base/base.js' %}"></script>
+    <script>
+        let user_profile_page = "{% url 'render_profile_page' %}"
+    </script>
     {% block extra_scripts %}{% endblock %}
 </body>
 </html>
