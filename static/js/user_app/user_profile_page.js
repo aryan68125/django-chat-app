@@ -1,6 +1,7 @@
 $(document).ready(function(){
     upload_profile_picture()
     add_or_update_user_profile_data()
+    get_profile_data()
 })
 
 // ADD OR UPDATE PROFILE PICTURE DATA IN THE FORM STARTS
@@ -61,3 +62,29 @@ function add_or_update_user_profile_data(){
     })
 }
 // ADD OR UPDATE USER PROFILE DATA IN THE FORM ENDS
+
+// GET DATA FROM THE BACK-END FOR THE UPDATE PROFILE DATA STARTS
+function get_profile_data(){
+    fetch(
+        ProcessUserProfileData,{
+            method:'GET',
+            headers:{
+                "X-CSRFtoken":getCookie("csrftoken"),
+            }
+        }
+    ).then(response=>response.json())
+    .then(data=>{
+        if(data.status_code === 200){
+            console.log(data.data)
+            $("#user_name_profile_page").val(data.data.name)
+            $("#user_phonenumber_profile_page").val(data.data.mobile_number)
+            if (data.data.profile_picture_url){
+                $("#profile_photo_preview").attr("src", data.data.profile_picture_url)
+            }
+        }
+        else{
+            error_alert(data.error)
+        }
+    })
+}
+// GET DATA FROM THE BACK-END FOR THE UPDATE PROFILE DATA ENDS

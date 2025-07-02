@@ -49,6 +49,6 @@ class UserDetials(models.Model):
     mobile_number = models.CharField(max_length=10,null=True,blank=True)
     profile_picture = models.ImageField(upload_to=user_profile_picture_path, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    is_deleted = models.BooleanField(default=True)
+    is_deleted = models.BooleanField(default=False)
     def __str__(self):
         return self.name

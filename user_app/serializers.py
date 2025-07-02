@@ -22,3 +22,13 @@ class CreateOrUpdateUserProfileSerializer(serializers.ModelSerializer,CommonVali
         )
         return instance
     
+class GetUserDetialsSerializer(serializers.ModelSerializer):
+    profile_picture_url = serializers.SerializerMethodField()
+    class Meta:
+        model = UserDetials
+        fields = ["id","user","name","mobile_number","profile_picture","profile_picture_url","created_at","is_deleted"]
+    def get_profile_picture_url(self,obj):
+        request = self.context.get("request")
+        if obj.profile_picture and hasattr(obj.profile_picture,"url"):
+            return request.build_absolute_uri(obj.profile_picture.url)
+        return None

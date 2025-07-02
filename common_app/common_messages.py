@@ -19,6 +19,9 @@ class ErrorMessages(Enum):
     # INTERNAL SERVER ERROR
     SOMETHING_WENT_WRONG = "Something went wrong! Please try again later."
 
+    # USER PROFILE DATA NOT FOUND
+    USER_PROFILE_DATA_NOT_FOUND = "User profile data not found"
+
 
 class SuccessMessages(Enum):
     ACCOUNT_REGISTERED = "Account registered successfully!"
