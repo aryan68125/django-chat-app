@@ -12,3 +12,11 @@ class CommonValidations:
             return {"status":True,"message":"Password is valid!"}
         else:
             return {"status":False,"error":ErrorMessages["PASSWORD_NOT_VALID"].value}
+        
+    def is_phone_no_valid(self,phone_number):
+        if not len(phone_number) == 10:
+            return {"status":False,"error":ErrorMessages["PHONE_NUMBER_LENGTH_ERROR"].value}
+        if not phone_number.isdigit():
+            return {"status":False,"error":ErrorMessages["PHONE_NUMBER_IS_NOT_A_NUMBER"].value}
+        return {"status":True}
+        
