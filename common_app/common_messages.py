@@ -25,9 +25,15 @@ class ErrorMessages(Enum):
     USER_PROFILE_DATA_NOT_FOUND = "User profile data not found"
     LOGGEDIN_USER_NOT_FOUND = "Logged in user not found"
 
+    ACCOUNT_VERIFICATION_LINK_ERROR = "Invalid or missing verification link"
+    UID_SERIALIZER_ERROR = "uid is required"
+    TOKEN_SERIALIZER_ERROR = "token is required"
+    INVALID_TOKEN = "Token is invalid"
+
 
 class SuccessMessages(Enum):
     ACCOUNT_REGISTERED = "Account registered successfully!"
+    ACCOUNT_ACTIVATED = "Account activated!"
     LOGIN_SUCCESS = "Welcome!"
 
     USER_PROFILE_UPDATED = "Your profile has been updated"

@@ -1,0 +1,30 @@
+{% extends "base/base_auth.html" %}
+{% load static %}
+{% block title %}Verify account{% endblock %}
+
+{% block content %}
+<link href = "{% static 'css/users_app/register_page.css' %}" rel="stylesheet"/>
+<!--REGISTER USER FORM STARTS-->
+<div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-white-600 dark:border-gray-700 flex flex-col items-center justify-center">
+    <div class="flex flex-row align-center justify-center">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">Verify account</h5>
+    </div>
+  
+    <div class="flex flex-col items-center justify-around">
+        <div class="mb-6">
+            <div id="verification_message">Verifying your account please wait...</div>
+        </div>
+    </div>
+</div>
+<!--REGISTER USER FORM ENDS-->
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    let verification_uid = "{{ verification_uid }}"
+    let verification_token = "{{ verification_token }}"
+    let login_page_url = "{% url 'login_user_page' %}"
+    let RegisterUser = "{% url 'RegisterUser' %}"
+</script>
+<script src="{% static 'js/auth_app/verify_account_page.js' %}"></script>
+{% endblock %}
