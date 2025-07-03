@@ -1,7 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework import authentication, permissions
 from rest_framework import status
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication
+from django.contrib.auth import logout
 
 # import response utility
 from common_app.views_bl import CommonResponse
@@ -36,6 +38,8 @@ class RegisterUser(APIView, CommonResponse):
         return self.common_web_response(
             status_code=status.HTTP_201_CREATED,message=SuccessMessages["ACCOUNT_REGISTERED"].value
         )
+    
+
 class LoginUser(APIView,CommonResponse):
     def post(self,request):
         try:
@@ -55,3 +59,10 @@ class LoginUser(APIView,CommonResponse):
             return self.common_web_response(status_code=status.HTTP_400_BAD_REQUEST,error=ve.detail)
         except Exception as e:
             return self.common_web_response(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,error=ErrorMessages["SOMETHING_WENT_WRONG"].value, message=str(e))
+        
+class LogoutUser(APIView,CommonResponse):
+    permission_classes = [IsAuthenticated,]
+    authentication_classes = [SessionAuthentication,]
+    def post(self,request):
+        logout(request)
+        return self.common_web_response(status_code=status.HTTP_200_OK,message=SuccessMessages["USER_LOGOUT_SUCCESS"].value)

@@ -15,8 +15,25 @@ function user_profile_page_btn_handler() {
 }
 
 function handle_logout_button() {
-    $(document).on("click", "#logout_button", function () {
+    $(document).on("click", "#logout_button_nav_bar", function () {
         // Optionally make logout request here
-        window.location.href = "{% url 'logout_user_page' %}"
+        fetch(
+            LogoutUser,
+            {
+                method:'POST',
+                headers:{
+                    "X-CSRFToken":getCookie("csrftoken"),
+                    "Accept":"application/json",
+                }
+            }
+        ).then(response=>response.json())
+        .then(data=>{
+            if(data.status_code===200){
+                success_alert(data.message,login_user_page)
+            }
+            else{
+                error_alert(data.error)
+            }
+        })
     })
 }

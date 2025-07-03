@@ -70,6 +70,8 @@
     <script src="{% static 'js/base/base.js' %}"></script>
     <script>
         let user_profile_page = "{% url 'render_profile_page' %}"
+        let LogoutUser = "{% url 'LogoutUser' %}"
+        let login_user_page = "{% url 'login_user_page' %}"
     </script>
     {% block extra_scripts %}{% endblock %}
 </body>

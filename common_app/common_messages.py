@@ -28,8 +28,10 @@ class ErrorMessages(Enum):
 
 class SuccessMessages(Enum):
     ACCOUNT_REGISTERED = "Account registered successfully!"
-    LOGIN_SUCCESS = "Login Successful!"
+    LOGIN_SUCCESS = "Welcome!"
 
     USER_PROFILE_UPDATED = "Your profile has been updated"
     USER_PASSWORD_UPDATED = "You password is changes successfully!"
+
+    USER_LOGOUT_SUCCESS = "Good bye see you soon!"
     
