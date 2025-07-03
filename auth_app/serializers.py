@@ -21,16 +21,19 @@ class RegisterUserSerializer(serializers.ModelSerializer,CommonValidations):
     class Meta:
         model = User
         fields = ["email","password","is_active","is_admin","is_deleted"]
+        
     def validate_email(self,value):
         """Validate the email field"""
         if not self.is_email_valid(value).get("status"):
             raise serializers.ValidationError(self.is_email_valid(value).get("error"))
         return value
+    
     def validate_password(self,value):
         """Validate the password field"""
         if not self.is_password_valid(value).get("status"):
             raise serializers.ValidationError(self.is_password_valid(value).get("error"))
         return value
+    
     def create(self,validated_data):
         """
         Check if the user is already in database with is_deleted = False
@@ -69,11 +72,13 @@ class LoginUserSerializer(serializers.Serializer,CommonValidations):
         if not self.is_email_valid(value).get("status"):
             raise serializers.ValidationError(self.is_email_valid(value).get("error"))
         return value
+    
     def validate_password(self,value):
         """Validate passowrd field"""
         if not self.is_password_valid(value).get("status"):
             raise serializers.ValidationError(self.is_password_valid(value).get("error"))
         return value
+    
     def create(self,validated_data):
         email = validated_data.get("email").lower()
         password = validated_data.get("password")

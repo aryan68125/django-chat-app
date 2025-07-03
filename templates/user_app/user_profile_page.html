@@ -54,23 +54,23 @@
     </div>
     <div class="w-full flex flex-col sm:flex-row items-center justify-start">
         <div class="flex flex-col items-start justify-center p-5">
-            <label for="user_name_profile_page" class="font-semibold text-lg">Old Password:</label>
-            <input type="password" class="rounded-xl" id="user_name_profile_page"/>
-            <p class="text-red-500 hidden" id="user_name_profile_page_error"></p>
+            <label for="old_password" class="font-semibold text-lg">Old Password:</label>
+            <input type="password" class="rounded-xl" id="old_password"/>
+            <p class="text-red-500 hidden" id="old_password_error"></p>
         </div>
         <div class="flex flex-col items-start justify-center p-5">
-            <label for="user_name_profile_page" class="font-semibold text-lg">New Password:</label>
-            <input type="password" class="rounded-xl" id="user_name_profile_page"/>
-            <p class="text-red-500 hidden" id="user_name_profile_page_error"></p>
+            <label for="password1" class="font-semibold text-lg">New Password:</label>
+            <input type="password" class="rounded-xl" id="password1"/>
+            <p class="text-red-500 hidden" id="password1_error"></p>
         </div>
         <div class="flex flex-col items-start justify-center p-5">
-            <label for="user_phonenumber_profile_page" class="font-semibold text-lg">Confirm Password:</label>
-            <input type="password" class="rounded-xl" id="user_phonenumber_profile_page"/>
-            <p class="text-red-500 hidden" id="user_phonenumber_profile_page_error" maxlength="10"></p>
+            <label for="password2" class="font-semibold text-lg">Confirm Password:</label>
+            <input type="password" class="rounded-xl" id="password2"/>
+            <p class="text-red-500 hidden" id="password2_error" maxlength="10"></p>
         </div>
     </div>
     <div class="flex flex-row items-center justify-center sm:justify-end w-full p-5">
-        <button class="bg-black text-white font-semibold rounded-lg px-4 py-2 hover:bg-blue-600" id="update_password_profile_page">Change Password</button>
+        <button class="bg-black text-white font-semibold rounded-lg px-4 py-2 hover:bg-blue-600" id="change_password_btn">Change Password</button>
     </div>
     <!--USER PROFILE CHANGE PASSWORD FORM ENDS-->
 </div>
@@ -79,7 +79,8 @@
 
 {% block extra_scripts %}
 <script>
-    let ProcessUserProfileData = "{% url 'ProcessUserProfileData' %}"
+    let ProcessUserProfileData = "{% url 'ProcessUserProfileData' %}";
+    let ProcessChangePassword = "{% url 'ProcessChangePassword' %}"
 </script>
 <script src="{% static 'js/user_app/user_profile_page.js' %}"></script>
 {% endblock %}

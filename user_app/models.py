@@ -32,7 +32,7 @@ class User(AbstractBaseUser):
         "Does the user have permissions to view the app `app_label`?"
         # Simplest possible answer: Yes, always
         return True
-
+    
     @property
     def is_staff(self):
         "Is the user a member of staff?"
@@ -43,6 +43,7 @@ def user_profile_picture_path(instance, filename):
     ext = filename.split('.')[-1]
     filename = f"profile_picture.{ext}"  # optional rename
     return os.path.join("profile_pictures", str(instance.user.pk), filename)
+
 class UserDetials(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="user_detials")
     name = models.CharField(max_length=200,null=True,blank=True)

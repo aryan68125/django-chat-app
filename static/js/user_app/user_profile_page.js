@@ -2,6 +2,7 @@ $(document).ready(function(){
     upload_profile_picture()
     add_or_update_user_profile_data()
     get_profile_data()
+    change_password_btn_handler()
 })
 
 // ADD OR UPDATE PROFILE PICTURE DATA IN THE FORM STARTS
@@ -88,3 +89,42 @@ function get_profile_data(){
     })
 }
 // GET DATA FROM THE BACK-END FOR THE UPDATE PROFILE DATA ENDS
+
+// CHANGE PASSWORD FORM RELATED LOGIC STARTS
+function change_password_btn_handler(){
+    $(document).on("click","#change_password_btn",function(){
+        get_change_password_form_data()
+    })
+}
+function get_change_password_form_data(){
+    let old_password = $("#old_password").val()
+    let password1 = $("#password1").val()
+    let password2 = $("#password2").val()
+     let data = {
+        old_password:old_password,
+        password1:password1,
+        password2:password2
+    }
+    fetch(
+        ProcessChangePassword,
+        {
+            method:'PUT',
+            headers:{
+                "X-CSRFToken":getCookie("csrftoken"),
+                "Accept":"application/json",
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(data)
+        }
+    ).then(response=>response.json())
+        .then(data=>{
+            console.log(data)
+            if(data.status_code===200){
+                success_alert(data.message,window.location.href)
+            }
+            else{
+                error_alert(data.error)
+            }
+        })
+}
+// CHANGE PASSWORD FORM RELATED LOGIC ENDS

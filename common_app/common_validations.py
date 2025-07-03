@@ -7,6 +7,7 @@ class CommonValidations:
             return {'status':True,'message':'Email is valid!'}
         else:
             return {'status':False,'error':ErrorMessages["EMAIL_NOT_VALID"].value}
+        
     def is_password_valid(self,password):
         if re.match(CommonValidationPatterns["PASSWORD"].value,password):
             return {"status":True,"message":"Password is valid!"}

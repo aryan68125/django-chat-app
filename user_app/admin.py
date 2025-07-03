@@ -8,6 +8,7 @@ class UserModelAdmin(admin.ModelAdmin):
         model = User
     list_display = [field.name for field in User._meta.get_fields() if not field.many_to_many and not field.one_to_many]
 
+
 @admin.register(UserDetials)
 class UserDetialsAdmin(admin.ModelAdmin):
     class Meta:
