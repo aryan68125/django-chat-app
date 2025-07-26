@@ -21,6 +21,7 @@ from auth_app.serializers import RegisterUserSerializer,LoginUserSerializer, Act
 from rest_framework.exceptions import ValidationError
 from common_app.common_messages import ErrorMessages,SuccessMessages
 
+
 class RegisterUser(APIView, CommonResponse):
     """this api end point is used to verify email and activate the account after the user account is created"""
     def put(self,request):
